@@ -1,0 +1,8 @@
+.venv/
+data/
+models/*.pt
+server/queue/
+__pycache__/
+.ipynb_checkpoints/
+app/platforms/
+app/node_modules/

@@ -1,0 +1,22 @@
+{
+  "classes": [
+    "healthy",
+    "rust",
+    "miner",
+    "cercospora",
+    "phoma"
+  ],
+  "img_size": 224,
+  "mean": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "std": [
+    0.229,
+    0.224,
+    0.225
+  ],
+  "epoch": 13,
+  "val_f1": 0.900754019279093
+}
