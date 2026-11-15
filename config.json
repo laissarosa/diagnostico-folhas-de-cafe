@@ -1,0 +1,6 @@
+{
+  "threshold": 0.755,
+  "min_sharpness": 40.64866113020398,
+  "target_acc": 0.95,
+  "sharpness_percentile": 1
+}

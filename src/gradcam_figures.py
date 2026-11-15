@@ -8,6 +8,7 @@ from config import ROOT, REPORTS_DIR, CLASSES, SEED
 from gradcam import Explainer
 
 N_OK, N_ERR, N_REVIEW_OK = 3, 3, 6
+HEALTHY = CLASSES.index("healthy")
 FIG_DIR = REPORTS_DIR / "figures" / "gradcam"
 REV_DIR = REPORTS_DIR / "gradcam_review"
 FIG_DIR.mkdir(parents=True, exist_ok=True)
@@ -43,11 +44,12 @@ for i, c in enumerate(CLASSES):
     if len(err):
         panel(err.sample(min(N_ERR, len(err)), random_state=SEED), f"{c}: erros", f"{c}_erros.png")
 
-# 2) Folha de revisão manual
+# 2) Folha de revisão manual: só folhas com lesão (a saudável fica de fora)
+dis = df[df["label_idx"] != HEALTHY]
 review = pd.concat([
-    df[~df["ok"]],
-    df[df["ok"]].groupby("label_idx", group_keys=False)
-      .apply(lambda g: g.sample(min(N_REVIEW_OK, len(g)), random_state=SEED)),
+    dis[~dis["ok"]],
+    dis[dis["ok"]].groupby("label_idx", group_keys=False)
+       .apply(lambda g: g.sample(min(N_REVIEW_OK, len(g)), random_state=SEED)),
 ]).reset_index(drop=True)
 
 rows = []
@@ -63,4 +65,4 @@ for n, r in enumerate(review.itertuples()):
 
 pd.DataFrame(rows).to_csv(REV_DIR / "gradcam_review.csv", index=False, encoding="utf-8-sig")
 print(f"Figuras em {FIG_DIR}")
-print(f"{len(rows)} imagens para revisão em {REV_DIR}")
+print(f"{len(rows)} imagens de folhas doentes para revisão em {REV_DIR}")

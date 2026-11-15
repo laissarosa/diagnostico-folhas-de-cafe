@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data: blob:; media-src *; connect-src *">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <meta name="color-scheme" content="light">
+    <title>Diagnóstico do Café</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <header>
+        <h1>Diagnóstico do Café</h1>
+        <p>Fotografe uma folha e veja o diagnóstico</p>
+    </header>
+
+    <main>
+        <section class="card">
+            <label for="api">Endereço do servidor</label>
+            <div class="row">
+                <input id="api" type="url" inputmode="url" autocomplete="off" placeholder="http://192.168.0.10:8000">
+                <button id="btn-test" class="ghost" type="button">Testar</button>
+            </div>
+            <p id="conn" class="small"></p>
+        </section>
+
+        <section class="actions">
+            <button id="btn-camera" type="button">Tirar foto</button>
+            <button id="btn-gallery" class="secondary" type="button">Galeria</button>
+        </section>
+
+        <section id="loading" class="card center" hidden>
+            <div class="spinner"></div>
+            <p>Analisando a folha…</p>
+        </section>
+
+        <section id="error" class="card error" hidden></section>
+
+        <section id="result" hidden>
+            <div id="banner" class="banner">
+                <h2 id="title"></h2>
+                <p id="subtitle"></p>
+            </div>
+
+            <div class="card">
+                <h3>Onde o modelo olhou</h3>
+                <img id="cam" alt="Mapa de calor sobre a folha">
+                <p class="small">As regiões coloridas foram as mais importantes para o diagnóstico. Confira se coincidem com a lesão.</p>
+            </div>
+
+            <div class="card">
+                <h3>Probabilidade por classe</h3>
+                <div id="probs"></div>
+            </div>
+
+            <button id="btn-escalate" type="button">Enviar para o agrônomo</button>
+            <p id="sent" class="small center" hidden></p>
+        </section>
+
+        <p class="disclaimer">Apoio à decisão, não substitui o agrônomo.</p>
+    </main>
+
+    <script src="cordova.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>
